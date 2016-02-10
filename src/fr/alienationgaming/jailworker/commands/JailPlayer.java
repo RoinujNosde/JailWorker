@@ -30,7 +30,7 @@ public class JailPlayer implements CommandExecutor {
 		if (args.length < 2)
 			return false;
 		String jailName = args[1];
-		if (sender instanceof ConsoleCommandSender || plugin.hasPerm(((Player)sender), "jailworker.jw-admin") || (plugin.hasPerm(((Player)sender), "jailworker.jw-player") && plugin.getJailConfig().getStringList("Jails." + jailName + ".Owners").contains(((Player)sender).getName()))){
+		if (sender instanceof ConsoleCommandSender || plugin.hasPerm(((Player)sender), "jailworker.jw-admin") || (plugin.hasPerm(((Player)sender), "jailworker.jw-player"))){
 			Player target = plugin.getServer().getPlayer(args[0]);
 			if (target == null){
 				sender.sendMessage(plugin.toLanguage("error-command-playeroffline", args[0]));
