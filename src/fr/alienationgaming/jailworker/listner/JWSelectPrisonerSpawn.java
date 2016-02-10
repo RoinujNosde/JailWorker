@@ -34,12 +34,12 @@ public class JWSelectPrisonerSpawn implements Listener {
 			if (!plugin.JailPrisonerSpawn.containsKey(player) || player != user)
 				return ;
 			Block block = event.getClickedBlock();
-			event.setCancelled(true);
 			plugin.JailPrisonerSpawn.put(player, new Location(block.getWorld(), block.getX(), block.getY() + 1, block.getZ()));
 			player.sendMessage(plugin.toLanguage("info-listener-spawnset"));
 			block.setType(Material.WOOL);
 			block.setData((byte) 14);
 			player.sendMessage(plugin.toLanguage("info-listener-allok"));
+			event.setCancelled(true);
 		}
 		PlayerInteractEvent.getHandlerList().unregister(this);
 	}
