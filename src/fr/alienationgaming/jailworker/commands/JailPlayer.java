@@ -96,7 +96,7 @@ public class JailPlayer implements CommandExecutor {
 			target.getEquipment().clear();
 			Vector spawn = plugin.getJailConfig().getVector("Jails." + jailName + ".Location.PrisonerSpawn");
 			World world = plugin.getServer().getWorld(plugin.getJailConfig().getString("Jails." + jailName + ".World"));
-			target.teleport(new Location(world, spawn.getX(), spawn.getY(), spawn.getZ()));
+			target.teleport(new Location(world, spawn.getX(), spawn.getY()+1, spawn.getZ()));
 			plugin.getServer().broadcastMessage(plugin.toLanguage("info-command-broadcastpunish", target.getName(), jailName, sender.getName()));
 			plugin.getServer().broadcastMessage(plugin.toLanguage("info-command-broadcastcantear"));
 			target.sendMessage(plugin.toLanguage("info-command-sendtojail", sender.getName()));
