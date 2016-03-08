@@ -1,5 +1,6 @@
 package fr.alienationgaming.jailworker;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -56,11 +57,12 @@ public class Jail {
 				int higherY = (int) Math.max(Blk1.getY(), Blk2.getY());
 				int lowerZ = (int) Math.min(Blk1.getZ(), Blk2.getZ());
 				int higherZ = (int) (Math.max(Blk1.getZ(), Blk2.getZ()));
+				Chunk chunk = world.getChunkAt(vec1.getBlockX(), vec2.getBlockZ());
 				blocksOnJail = utils.getNbrBlockInRegion(Material.getMaterial(type.toUpperCase()).getId(), Blk1, Blk2);
 				boolean notFull = (((higherX - lowerX) * (higherY - lowerY) * (higherZ - lowerZ)) > utils.getNbrBlockInRegion(-1, Blk1, Blk2));
 				//System.out.println("BlockOnjail/sandMax => " + blocksOnJail + "/" + sandMax);
 				//System.out.println("notfull: "  + (((higherX - lowerX) * (higherY - lowerY) * (higherZ - lowerZ)) + ">" + utils.getNbrBlockInRegion(-1, Blk1, Blk2)));
-				if ((blocksOnJail < sandMax) && notFull)
+				if ((blocksOnJail < sandMax) && notFull && (chunk.isLoaded() == true))
 				{
 					randomX = (int)(Math.random() * (higherX-lowerX)) + lowerX;
 					randomY = (int)(Math.random() * (higherY-lowerY)) + lowerY;

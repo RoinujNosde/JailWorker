@@ -10,7 +10,7 @@ Messages:
   error-command-jailremoveechec: '$redImpossible de supprimer la prison $s. Merci de contacter le staff'
   error-command-notowner: '$redVous n&apos;etes pas le proprietaire de cette prison'
   error-command-playeroffline: '$red$s est hors ligne'
-  error-command-playerunknow: '$redThis player neved played here.'
+  error-command-playerunknow: '$redThis player never played here.'
   error-command-missingonjail: '$red$s n&apos;est pas un prisonier'
   error-command-invalidmaterial: '$redMateriel invalide'
   error-command-actionofflineplayer: '$redCe joueur est hors ligne'
