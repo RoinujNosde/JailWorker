@@ -1,5 +1,4 @@
 package fr.alienationgaming.jailworker.listner;
-// TODO: Fazer com que este evento seja opcional
 import fr.alienationgaming.jailworker.JailWorker;
 
 import org.bukkit.Location;
@@ -19,7 +18,7 @@ public class JWOnAuthMeLoginEvent implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void OnPlayerJoin(LoginEvent event) {
+	public void OnLogin(LoginEvent event) {
 		Player player = event.getPlayer();
 		if (plugin.getJailConfig().contains("Prisoners." + player.getName())) {
 			String jailName = plugin.getJailConfig().getString("Prisoners." + player.getName() + ".Prison");

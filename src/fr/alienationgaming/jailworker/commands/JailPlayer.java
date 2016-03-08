@@ -80,9 +80,8 @@ public class JailPlayer implements CommandExecutor {
 					plugin.saveJailConfig();
 					plugin.reloadJailConfig();
 					
-					// TODO: Adicionar ao arquivo de linguagem.
-					sender.sendMessage(plugin.toLanguage("error-info-prisonerqueue"));
-				}
+					sender.sendMessage(plugin.toLanguage("info-command-prisonerqueue"));
+				}else {sender.sendMessage(plugin.toLanguage("error-command-playerunknow")); return true;}
 				return true;
 			}
 			if (!plugin.getJailConfig().contains("Jails." + jailName)){
