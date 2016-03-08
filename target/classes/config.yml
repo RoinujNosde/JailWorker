@@ -7,6 +7,9 @@ Plugin:
 
   # You can change this value by your favorite language (corresponding to the <lang>.yml on the plugin directory)
   Language: en
+  
+  # Should JailWorker hook with AuthMe and teleport prisoners to the jail after they log in?
+  AuthMeHook: true
 
 Prisoners:
   # Allow prisoners to speak and ear

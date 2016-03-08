@@ -1,6 +1,7 @@
 name: JailWorker
 main: fr.alienationgaming.jailworker.JailWorker
-version: 2.0.0
+author: ReaperSoon
+version: 2.0.3
 depends: [Vault]
 commands:
    jw-player:

@@ -2,6 +2,7 @@ package fr.alienationgaming.jailworker.commands;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -33,7 +34,55 @@ public class JailPlayer implements CommandExecutor {
 		if (sender instanceof ConsoleCommandSender || plugin.hasPerm(((Player)sender), "jailworker.jw-admin") || (plugin.hasPerm(((Player)sender), "jailworker.jw-player"))){
 			Player target = plugin.getServer().getPlayer(args[0]);
 			if (target == null){
-				sender.sendMessage(plugin.toLanguage("error-command-playeroffline", args[0]));
+				//sender.sendMessage(plugin.toLanguage("error-command-playeroffline", args[0]));
+				OfflinePlayer offlineplayer = plugin.getServer().getOfflinePlayer(args[0]);
+				if (offlineplayer.hasPlayedBefore()) {
+					if (!plugin.getJailConfig().contains("Jails." + jailName)){
+						sender.sendMessage(plugin.toLanguage("error-command-jailnotexist", jailName));
+						return true;
+					}
+					if (!plugin.getJailConfig().getBoolean("Jails." + jailName + ".isStarted")){
+						sender.sendMessage(plugin.toLanguage("error-command-notstarted", jailName));
+						return true;
+					}
+
+					/* Get nbr blocks to break by default for the jail */
+					int blocks = 0;
+					if (args.length >= 3){
+						try{
+							blocks = Integer.parseInt(args[2]);
+						}
+						catch (Exception e){
+							sender.sendMessage(plugin.toLanguage("error-command-invalidumber"));
+							return false;
+						}
+					}else
+						blocks = plugin.getJailConfig().getInt("Jails." + jailName + ".Blocks");
+
+					/* Get Cause */
+					String cause = "";
+					if (args.length >= 4){
+						for (int i = 3; i < args.length; ++i){
+							cause += args[i];
+							cause += " ";
+						}
+					}else
+						cause = "No Reason.";
+					if (blocks < 0){
+						sender.sendMessage(plugin.toLanguage("error-command-invalidumber"));
+						return true;
+					}
+
+					plugin.getJailConfig().set("Queue." + offlineplayer.getName() + ".Prison", jailName);
+					plugin.getJailConfig().set("Queue." + offlineplayer.getName() + ".Punisher", sender.getName());
+					plugin.getJailConfig().set("Queue." + offlineplayer.getName() + ".PunishToBreak", blocks);
+					plugin.getJailConfig().set("Queue." + offlineplayer.getName() + ".Cause", cause);
+					plugin.saveJailConfig();
+					plugin.reloadJailConfig();
+					
+					// TODO: Adicionar ao arquivo de linguagem.
+					sender.sendMessage(plugin.toLanguage("error-info-prisonerqueue"));
+				}
 				return true;
 			}
 			if (!plugin.getJailConfig().contains("Jails." + jailName)){
