@@ -276,7 +276,9 @@ public class JailWorker extends JavaPlugin {
 		this.initLang();
 
 		/* Events see on JailSet.java & JailSetSpawn.java */
-		this.getServer().getPluginManager().registerEvents(jwplayerjoinevent, this);
+		if (!(getConfig().getBoolean("Plugin.AuthMeHook"))) {
+			this.getServer().getPluginManager().registerEvents(jwplayerjoinevent, this);
+		}
 		if (getConfig().getBoolean("Plugin.AuthMeHook")) {
 			this.getServer().getPluginManager().registerEvents(jwonauthmeloginevent, this);
 		}
