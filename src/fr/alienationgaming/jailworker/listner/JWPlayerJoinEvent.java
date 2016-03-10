@@ -25,11 +25,21 @@ public class JWPlayerJoinEvent implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void OnPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+		String nickname = player.getName().toLowerCase();
+		if (plugin.getJailConfig().contains("Prisoners." + player.getName())) {
+			String jailName = plugin.getJailConfig().getString("Prisoners." + player.getName() + ".Prison");
+			int remain = plugin.getJailConfig().getInt("Prisoners." + player.getName() + ".RemainingBlocks");
+			World world = plugin.getServer().getWorld(plugin.getJailConfig().getString("Jails." + jailName + ".World"));
+			Vector spawn = plugin.getJailConfig().getVector("Jails." + jailName + ".Location.PrisonerSpawn");
+			// TODO: Colocar uma frase melhor aqui.
+			player.sendMessage(plugin.toLanguage("info-command-prisonerorder", remain, plugin.getJailConfig().getString("Jails." + jailName + ".Type")));
+			player.teleport(new Location(world, spawn.getX(), spawn.getY()+1, spawn.getZ()));
+		}
 		if (plugin.getJailConfig().contains("Queue." + player.getName())) {
-			String jailName = plugin.getJailConfig().getString("Queue." + player.getName() + ".Prison");
-			String Punisher = plugin.getJailConfig().getString("Queue." + player.getName() + ".Punisher");
-			int blocks = plugin.getJailConfig().getInt("Queue." + player.getName() + ".PunishToBreak");
-			String cause = plugin.getJailConfig().getString("Queue." + player.getName() + ".Cause");
+			String jailName = plugin.getJailConfig().getString("Queue." + nickname + ".Prison");
+			String Punisher = plugin.getJailConfig().getString("Queue." + nickname + ".Punisher");
+			int blocks = plugin.getJailConfig().getInt("Queue." + nickname + ".PunishToBreak");
+			String cause = plugin.getJailConfig().getString("Queue." + nickname + ".Cause");
 			
 			/* Get inventory */
 			JWInventorySaver invSaver = new JWInventorySaver(plugin);
@@ -62,7 +72,7 @@ public class JWPlayerJoinEvent implements Listener {
 				player.sendMessage(plugin.toLanguage("info-command-displayreason", cause));
 			player.sendMessage(plugin.toLanguage("info-command-prisonerorder", blocks, plugin.getJailConfig().getString("Jails." + jailName + ".Type")));
 			
-			plugin.getJailConfig().set("Queue." + player.getName(), null);
+			plugin.getJailConfig().set("Queue." + nickname, null);
 			plugin.saveJailConfig();
 			plugin.reloadJailConfig();
 			

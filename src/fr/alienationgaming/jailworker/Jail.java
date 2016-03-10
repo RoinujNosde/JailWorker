@@ -57,12 +57,14 @@ public class Jail {
 				int higherY = (int) Math.max(Blk1.getY(), Blk2.getY());
 				int lowerZ = (int) Math.min(Blk1.getZ(), Blk2.getZ());
 				int higherZ = (int) (Math.max(Blk1.getZ(), Blk2.getZ()));
-				Chunk chunk = world.getChunkAt(vec1.getBlockX(), vec2.getBlockZ());
+				// TODO: Checar se essas linhas sobre o chunk funcionam
+				//Chunk chunk = world.getChunkAt(vec1.getBlockX(), vec2.getBlockZ());
 				blocksOnJail = utils.getNbrBlockInRegion(Material.getMaterial(type.toUpperCase()).getId(), Blk1, Blk2);
 				boolean notFull = (((higherX - lowerX) * (higherY - lowerY) * (higherZ - lowerZ)) > utils.getNbrBlockInRegion(-1, Blk1, Blk2));
 				//System.out.println("BlockOnjail/sandMax => " + blocksOnJail + "/" + sandMax);
 				//System.out.println("notfull: "  + (((higherX - lowerX) * (higherY - lowerY) * (higherZ - lowerZ)) + ">" + utils.getNbrBlockInRegion(-1, Blk1, Blk2)));
-				if ((blocksOnJail < sandMax) && notFull && (chunk.isLoaded() == true))
+				//if ((blocksOnJail < sandMax) && notFull && (chunk.isLoaded() == true))
+				if ((blocksOnJail < sandMax) && notFull)
 				{
 					randomX = (int)(Math.random() * (higherX-lowerX)) + lowerX;
 					randomY = (int)(Math.random() * (higherY-lowerY)) + lowerY;

@@ -36,7 +36,7 @@ public class JailPlayer implements CommandExecutor {
 			if (target == null){
 				//sender.sendMessage(plugin.toLanguage("error-command-playeroffline", args[0]));
 				OfflinePlayer offlineplayer = plugin.getServer().getOfflinePlayer(args[0]);
-				if (offlineplayer.hasPlayedBefore()) {
+				if (offlineplayer.hasPlayedBefore() && !(plugin.getJailConfig().contains("Queue." + offlineplayer.getName().toLowerCase()))) {
 					if (!plugin.getJailConfig().contains("Jails." + jailName)){
 						sender.sendMessage(plugin.toLanguage("error-command-jailnotexist", jailName));
 						return true;
@@ -73,10 +73,10 @@ public class JailPlayer implements CommandExecutor {
 						return true;
 					}
 
-					plugin.getJailConfig().set("Queue." + offlineplayer.getName() + ".Prison", jailName);
-					plugin.getJailConfig().set("Queue." + offlineplayer.getName() + ".Punisher", sender.getName());
-					plugin.getJailConfig().set("Queue." + offlineplayer.getName() + ".PunishToBreak", blocks);
-					plugin.getJailConfig().set("Queue." + offlineplayer.getName() + ".Cause", cause);
+					plugin.getJailConfig().set("Queue." + offlineplayer.getName().toLowerCase() + ".Prison", jailName);
+					plugin.getJailConfig().set("Queue." + offlineplayer.getName().toLowerCase() + ".Punisher", sender.getName());
+					plugin.getJailConfig().set("Queue." + offlineplayer.getName().toLowerCase() + ".PunishToBreak", blocks);
+					plugin.getJailConfig().set("Queue." + offlineplayer.getName().toLowerCase() + ".Cause", cause);
 					plugin.saveJailConfig();
 					plugin.reloadJailConfig();
 					

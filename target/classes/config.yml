@@ -9,7 +9,7 @@ Plugin:
   Language: en
   
   # Should JailWorker hook with AuthMe and teleport prisoners to the jail after they log in?
-  AuthMeHook: true
+  AuthMeHook: false
 
 Prisoners:
   # Allow prisoners to speak and ear
