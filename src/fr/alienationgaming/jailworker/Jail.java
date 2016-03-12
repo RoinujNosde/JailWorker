@@ -74,7 +74,11 @@ public class Jail {
 						randomLocation = new Location(Blk1.getWorld(), randomX, randomY, randomZ);
 					}
 					
-					world.spawnFallingBlock(randomLocation, Material.getMaterial(type.toUpperCase()), (byte) 0);
+					int chunkX = (int)(randomX / 16);
+					int chunkZ = (int)(randomZ / 16);
+					if (world.isChunkInUse(chunkX, chunkZ)) {
+						world.spawnFallingBlock(randomLocation, Material.getMaterial(type.toUpperCase()), (byte) 0);
+					}
 				}
 			}
 		}, 30L, (speed * 30));

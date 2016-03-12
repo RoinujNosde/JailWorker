@@ -48,7 +48,9 @@ import fr.alienationgaming.jailworker.commands.Stop;
 import fr.alienationgaming.jailworker.commands.WhiteCmd;
 import fr.alienationgaming.jailworker.listner.JWBlockBreakListener;
 import fr.alienationgaming.jailworker.listner.JWChatPrisonerPrevent;
+import fr.alienationgaming.jailworker.listner.JWOnAuthMeLoginEvent;
 import fr.alienationgaming.jailworker.listner.JWPlayerCommandProtector;
+import fr.alienationgaming.jailworker.listner.JWPlayerJoinEvent;
 import fr.alienationgaming.jailworker.listner.JWPrisonerDieListener;
 import fr.alienationgaming.jailworker.listner.JWPutBlockListener;
 import fr.stevecohen.jailworker.configsign.OnConfigSignPlacedListener;
@@ -77,6 +79,8 @@ public class JailWorker extends JavaPlugin {
 	private OwnerManager											jailmanageowners = new OwnerManager(this);
 
 	/* Listeners */
+	public JWPlayerJoinEvent										jwplayerjoinevent = new JWPlayerJoinEvent(this);
+	public JWOnAuthMeLoginEvent										jwonauthmeloginevent = new JWOnAuthMeLoginEvent(this);
 	public JWBlockBreakListener 									jwblockbreaklistener = new JWBlockBreakListener(this);
 	public JWPrisonerDieListener 									jwprisonerdielistener = new JWPrisonerDieListener(this);
 	public JWPlayerCommandProtector 								jwplayercommandprotector = new JWPlayerCommandProtector(this);
@@ -187,6 +191,7 @@ public class JailWorker extends JavaPlugin {
 			this.saveResource("jails.yml", false);
 			this.getJailConfig().createSection("Jails");
 			this.getJailConfig().createSection("Prisoners");
+			this.getJailConfig().createSection("Queue");
 			this.getLogger().log(Level.INFO, "Default jail.yml saved.");
 		}
 	}
@@ -271,6 +276,12 @@ public class JailWorker extends JavaPlugin {
 		this.initLang();
 
 		/* Events see on JailSet.java & JailSetSpawn.java */
+		if (!(getConfig().getBoolean("Plugin.AuthMeHook"))) {
+			this.getServer().getPluginManager().registerEvents(jwplayerjoinevent, this);
+		}
+		if (getConfig().getBoolean("Plugin.AuthMeHook")) {
+			this.getServer().getPluginManager().registerEvents(jwonauthmeloginevent, this);
+		}
 		this.getServer().getPluginManager().registerEvents(jwblockbreaklistener, this);
 		this.getServer().getPluginManager().registerEvents(jwprisonerdielistener, this);
 		this.getServer().getPluginManager().registerEvents(jwplayercommandprotector, this);
