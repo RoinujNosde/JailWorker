@@ -9,7 +9,7 @@ Messages:
   error-command-jailremoveechec: '$redUnable to delete the jail $s. Please contact the staff'
   error-command-notowner: '$redYou do not own this jail'
   error-command-playeroffline: '$red$s is offline'
-  error-command-playerunknow: '$redThis player never played here.'
+  error-command-playerunknow: '$redThis player never played here or is already in queue.'
   error-command-missingonjail: '$red$s is not a prisoner'
   error-command-invalidmaterial: '$redInvalid material'
   error-command-actionofflineplayer: '$redThis player is offline'

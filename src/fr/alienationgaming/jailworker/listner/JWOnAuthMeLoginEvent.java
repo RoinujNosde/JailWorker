@@ -34,7 +34,7 @@ public class JWOnAuthMeLoginEvent implements Listener {
 			player.sendMessage(plugin.toLanguage("info-command-prisonerorder", remain, plugin.getJailConfig().getString("Jails." + jailName + ".Type")));
 			player.teleport(new Location(world, spawn.getX(), spawn.getY()+1, spawn.getZ()));
 		}
-		if (plugin.getJailConfig().contains("Queue." + player.getName())) {
+		if (plugin.getJailConfig().contains("Queue." + player.getName().toLowerCase())) {
 			String jailName = plugin.getJailConfig().getString("Queue." + nickname + ".Prison");
 			String Punisher = plugin.getJailConfig().getString("Queue." + nickname + ".Punisher");
 			int blocks = plugin.getJailConfig().getInt("Queue." + nickname + ".PunishToBreak");
